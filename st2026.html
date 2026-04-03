@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="استمارة الانفكاك">
+    <title>استمارة الانفكاك للطلبة المطبقين</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" href="icons/icon-192x192.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-left, .header-right {
+            flex: 1;
+        }
+
+        .header-left {
+            text-align: left;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .header-center {
+            flex: 0 0 auto;
+            margin: 0 20px;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            margin: 5px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .header h2 {
+            font-size: 1rem;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: #1e3a8a;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: white;
+            color: #1e3a8a;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.5rem;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card h2 .clear-icon-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .card h2 .clear-icon-btn:hover {
+            background: #d97706;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f9fafb;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden;
+            background: white;
+        }
+
+        .action-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .student-entry {
+            background: #f3f4f6;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-right: 4px solid #3b82f6;
+            position: relative;
+        }
+
+        .student-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .student-entry h3 {
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .student-entry-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .clear-btn-student {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            padding: 0;
+        }
+
+        .clear-btn-student:hover {
+            background: #d97706;
+            transform: scale(1.1);
+        }
+
+        .remove-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            padding: 0;
+        }
+
+        .remove-btn:hover {
+            background: #b91c1c;
+            transform: scale(1.1);
+        }
+
+        .remove-btn-full {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .remove-btn-full:hover {
+            background: #b91c1c;
+        }
+
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .student-header h3 {
+            margin: 0;
+        }
+
+        .clear-fields-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .clear-fields-btn:hover {
+            background: #d97706;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            text-decoration: none;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .social-link:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .admin-section {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .admin-section h3 {
+            color: #d97706;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .data-table th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #1e3a8a;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 135%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .about-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .about-section ol {
+            margin: 20px 0 20px 40px;
+            line-height: 2;
+            font-size: 1rem;
+        }
+
+        .about-section li {
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+        .contact-item {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-right: 4px solid white;
+        }
+
+        .contact-item-label {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .contact-item-value {
+            font-size: 1.1rem;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .contact-item-value a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-item-value a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                font-size: 0.75rem;
+            }
+
+            .data-table th, .data-table td {
+                padding: 8px;
+            }
+
+            .action-btn {
+                width: 70px;
+                height: 70px;
+            }
+
+            .student-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .social-links {
+                gap: 20px;
+            }
+
+            .social-link {
+                width: 75px;
+                height: 75px;
+            }
+
+            .card h2 {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .student-entry-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1>وزارة التربية</h1>
+                <h2>مديرية تربية المثنى</h2>
+            </div>
+            <div class="header-center">
+                <img src="a.png" alt="شعار القسم" id="logoImg">
+            </div>
+            <div class="header-right">
+                <h1>قسم الإعداد والتدريب</h1>
+                <h2>شعبة المعاهد</h2>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="#home" class="active" onclick="showPage('home')">الصفحة الرئيسية</a></li>
+            <li><a href="#internal" onclick="showPage('internal')">المطبقون من داخل</a></li>
+            <li><a href="#external" onclick="showPage('external')">المطبقون من خارج</a></li>
+            <li><a href="#report" onclick="checkReportAccess()">التقارير</a></li>
+            <li><a href="#admin" onclick="showPage('admin')">لوحة التحكم</a></li>
+            <li><a href="#about" onclick="showPage('about')">من نحن</a></li>
+            <li><a href="#contact" onclick="showPage('contact')">اتصل بنا</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- الصفحة الرئيسية -->
+        <section id="home" class="page card">
+            <h2>
+                <span>استمارة الانفكاك للطلبة المطبقين</span>
+                <button class="clear-icon-btn" onclick="clearSchoolForm()" title="افراغ الحقول">🧹</button>
+            </h2>
+            <form id="schoolForm">
+                <div class="form-group">
+                    <label>اسم المدرسة *</label>
+                    <input type="text" id="schoolName" required placeholder="أدخل اسم المدرسة">
+                </div>
+
+                <div class="form-group">
+                    <label>اسم مدير المدرسة *</label>
+                    <input type="text" id="principalName" required placeholder="أدخل اسم مدير المدرسة">
+                </div>
+
+                <div class="form-group">
+                    <label>رقم هاتف مدير المدرسة *</label>
+                    <input type="tel" id="principalPhone" required placeholder="أدخل رقم الهاتف (11 رقم)" maxlength="11">
+                </div>
+
+                <div class="form-group">
+                    <label>القطاع *</label>
+                    <select id="sector" required>
+                        <option value="">اختر القطاع</option>
+                        <option value="السماوة">السماوة</option>
+                        <option value="الخضر">الخضر</option>
+                        <option value="الرميثة">الرميثة</option>
+                        <option value="الوركاء">الوركاء</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>عدد المطبقين *</label>
+                    <select id="studentCount" required>
+                        <option value="">اختر العدد</option>
+                    </select>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="validateAndProceed('verify')">
+                        ✅ تأكد من المعلومات
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="validateAndProceed('internal')">
+                        🏫 المطبقون من داخل المحافظة
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="validateAndProceed('external')">
+                        🌍 المطبقون من خارج المحافظة
+                    </button>
+                </div>
+            </form>
+
+            <div class="success-msg" id="verifyMsg">
+                ✅ تم التحقق من المعلومات بنجاح!
+            </div>
+        </section>
+
+        <!-- المطبقون من داخل المحافظة -->
+        <section id="internal" class="page card" style="display:none;">
+            <h2>المطبقون من داخل المحافظة</h2>
+            <div id="internalStudents"></div>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="addStudent('internal')">
+                    ➕ إضافة مطبق
+                </button>
+                <button class="btn btn-primary" onclick="showPage('external')">
+                    ➡️ إضافة من خارج المحافظة
+                </button>
+                <button class="btn btn-info" onclick="submitAllData()">
+                    📤 إرسال المعلومات
+                </button>
+            </div>
+        </section>
+
+        <!-- المطبقون من خارج المحافظة -->
+        <section id="external" class="page card" style="display:none;">
+            <h2>المطبقون من خارج المحافظة</h2>
+            <div id="externalStudents"></div>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="addStudent('external')">
+                    ➕ إضافة مطبق من خارج المحافظة
+                </button>
+                <button class="btn btn-info" onclick="submitAllData()">
+                    📤 إرسال المعلومات
+                </button>
+            </div>
+        </section>
+
+        <!-- التقارير -->
+        <section id="report" class="page card" style="display:none;">
+            <h2>📋 تقرير الاستلام</h2>
+
+            <div class="action-buttons">
+                <div class="tooltip">
+                    <button class="action-btn" onclick="downloadExcelReport()" title="تحميل ملف إكسل">
+                        <img src="https://cdn-icons-png.flaticon.com/128/888/888857.png" alt="تحميل">
+                    </button>
+                    <span class="tooltiptext">تحميل Excel</span>
+                </div>
+                <div class="tooltip">
+                    <button class="action-btn" onclick="shareViaWhatsApp()" title="مشاركة عبر واتس آب">
+                        <img src="https://cdn-icons-png.flaticon.com/128/220/220236.png" alt="WhatsApp">
+                    </button>
+                    <span class="tooltiptext">WhatsApp</span>
+                </div>
+                <div class="tooltip">
+                    <button class="action-btn" onclick="shareViaTelegram()" title="مشاركة عبر تيليغرام">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+                    </button>
+                    <span class="tooltiptext">Telegram</span>
+                </div>
+                <div class="tooltip">
+                    <button class="action-btn" onclick="shareViaEmail()" title="مشاركة عبر البريد">
+                        <img src="https://cdn-icons-png.flaticon.com/128/552/552486.png" alt="Email">
+                    </button>
+                    <span class="tooltiptext">Email</span>
+                </div>
+            </div>
+
+            <div id="reportContent"></div>
+        </section>
+
+        <!-- لوحة التحكم -->
+        <section id="admin" class="page card" style="display:none;">
+            <h2>🔐 لوحة التحكم</h2>
+
+            <div id="adminLogin">
+                <div class="admin-section">
+                    <h3>تسجيل دخول الأدمن</h3>
+                    <div class="form-group">
+                        <label>اسم المستخدم</label>
+                        <input type="text" id="adminUser" placeholder="أدخل اسم المستخدم">
+                    </div>
+                    <div class="form-group">
+                        <label>كلمة المرور</label>
+                        <input type="password" id="adminPass" placeholder="أدخل كلمة المرور">
+                    </div>
+                    <button class="btn btn-primary" onclick="adminLogin()" style="width: 100%; justify-content: center;">🔐 دخول</button>
+                </div>
+            </div>
+
+            <div id="adminPanel" style="display:none;">
+                <!-- إعدادات النظام -->
+                <div class="admin-section">
+                    <h3>⚙️ إعدادات النظام</h3>
+                    <div class="form-group">
+                        <label>تغيير اسم المستخدم</label>
+                        <input type="text" id="newUsername" placeholder="اسم المستخدم الجديد">
+                    </div>
+                    <div class="form-group">
+                        <label>تغيير كلمة المرور</label>
+                        <input type="password" id="newPassword" placeholder="كلمة المرور الجديدة">
+                    </div>
+                    <button class="btn btn-success" onclick="updateAdminCredentials()">💾 حفظ التغييرات</button>
+                </div>
+
+                <!-- إحصائيات -->
+                <div class="admin-section">
+                    <h3>📊 الإحصائيات العامة</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>إجمالي الاستمارات</h4>
+                            <div class="number" id="totalForms">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>إجمالي المطبقين</h4>
+                            <div class="number" id="totalStudents">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>من داخل المحافظة</h4>
+                            <div class="number" id="internalCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>من خارج المحافظة</h4>
+                            <div class="number" id="externalCount">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المطبقون من داخل المحافظة -->
+                <div class="admin-section">
+                    <h3>👥 المطبقون من داخل المحافظة</h3>
+                    <div id="internalReportView"></div>
+                </div>
+
+                <!-- المطبقون من خارج المحافظة -->
+                <div class="admin-section">
+                    <h3>👥 المطبقون من خارج المحافظة</h3>
+                    <div id="externalReportView"></div>
+                </div>
+
+                <!-- البيانات المخزنة -->
+                <div class="admin-section">
+                    <h3>📋 البيانات المخزنة</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="viewAllData()">
+                            👁️ عرض جميع البيانات
+                        </button>
+                        <button class="btn btn-success" onclick="generateCumulativeReport()">
+                            📊 إنشاء تقرير تراكمي
+                        </button>
+                    </div>
+                    <div id="adminDataView" style="margin-top: 20px;"></div>
+                </div>
+
+                <!-- التقرير التراكمي -->
+                <div class="admin-section">
+                    <h3>📤 التقرير التراكمي</h3>
+                    <div id="cumulativeReportSection" style="display: none;">
+                        <div class="action-buttons">
+                            <div class="tooltip">
+                                <button class="action-btn" onclick="downloadCumulativeReport()" title="تحميل">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/888/888857.png" alt="تحميل">
+                                </button>
+                                <span class="tooltiptext">تحميل Excel</span>
+                            </div>
+                            <div class="tooltip">
+                                <button class="action-btn" onclick="shareCumulativeWhatsApp()" title="واتس">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/220/220236.png" alt="WhatsApp">
+                                </button>
+                                <span class="tooltiptext">WhatsApp</span>
+                            </div>
+                            <div class="tooltip">
+                                <button class="action-btn" onclick="shareCumulativeTelegram()" title="تيليغرام">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">
+                                </button>
+                                <span class="tooltiptext">Telegram</span>
+                            </div>
+                            <div class="tooltip">
+                                <button class="action-btn" onclick="shareCumulativeEmail()" title="بريد">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/552/552486.png" alt="Email">
+                                </button>
+                                <span class="tooltiptext">Email</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="noCumulativeReport" style="text-align: center; padding: 20px; color: #666;">
+                        <p>لم يتم إنشاء تقرير تراكمي حتى الآن</p>
+                    </div>
+                </div>
+
+                <!-- إدارة البيانات -->
+                <div class="admin-section">
+                    <h3>🗑️ إدارة البيانات</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" onclick="exportAllData()">
+                            📥 تصدير جميع البيانات
+                        </button>
+                        <button class="btn btn-danger" onclick="clearAllData()">
+                            🗑️ حذف جميع البيانات
+                        </button>
+                    </div>
+                </div>
+
+                <!-- تسجيل الخروج -->
+                <div class="admin-section">
+                    <button class="btn btn-danger" onclick="adminLogout()" style="width: 100%; justify-content: center;">
+                        🚪 تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- من نحن -->
+        <section id="about" class="page card" style="display:none;">
+            <h2>من نحن</h2>
+
+            <div class="about-section">
+                <h3>🏛️ قسم الإعداد والتدريب</h3>
+                <p><strong>مديرية تربية المثنى</strong></p>
+                <p>أحد أقسام المديرية العامة للتربية</p>
+
+                <p style="margin-top: 20px; font-weight: bold; font-size: 1.1rem;">🏢 يتكون القسم من الشعب التالية:</p>
+                <ol>
+                    <li>🎓 شعبة التدريب</li>
+                    <li>📚 شعبة المعاهد</li>
+                    <li>🔬 شعبة البحوث والدراسات</li>
+                    <li>🎨 شعبة الأشغال اليدوية</li>
+                    <li>📖 وحدة اللغة العربية</li>
+                    <li>🖼️ معهد الفنون الجميلة للبنين</li>
+                    <li>🖼️ معهد الفنون الجميلة للبنات</li>
+                </ol>
+
+                <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid white;">
+                    يسعى القسم إلى تطوير كفاءات المعلمين والمعلمات من خلال برامج تدريبية متخصصة وإعداد معلمين مؤهلين للعملية التعليمية.
+                </p>
+            </div>
+        </section>
+
+        <!-- اتصل بنا -->
+        <section id="contact" class="page card" style="display:none;">
+            <h2>اتصل بنا</h2>
+
+            <div class="contact-info">
+                <h3>📞 معلومات الاتصال</h3>
+
+                <div class="contact-item">
+                    <div class="contact-item-label">🏛️ الجهة</div>
+                    <div class="contact-item-value">مديرية تربية المثنى - قسم الإعداد والتدريب</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-label">☎️ رقم الهاتف</div>
+                    <div class="contact-item-value" dir="ltr">
+                        <a href="tel:+9647817533993">+964 781 753 3993</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-label">💬 واتس آب + تيليغرام</div>
+                    <div class="contact-item-value" dir="ltr">
+                        <a href="https://wa.me/9647817533993" target="_blank">+964 781 753 3993</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-label">📧 البريد الإلكتروني</div>
+                    <div class="contact-item-value" dir="ltr">
+                        <a href="mailto:mobadra2019@gmail.com">mobadra2019@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #1e3a8a; margin-top: 30px; margin-bottom: 25px; text-align: center;">تابعنا على وسائل التواصل الاجتماعي</h3>
+
+            <div class="social-links">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/profile.php?id=61560094628032" target="_blank" class="social-link" title="فيسبوك">
+                    <img src="https://cdn-icons-png.flaticon.com/128/733/733547.png" alt="فيسبوك">
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@aadad_offical" target="_blank" class="social-link" title="تيك توك">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3116/3116491.png" alt="تيك توك">
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/channel/UCXXkO4Qbs87oshrmYm9AyCQ" target="_blank" class="social-link" title="يوتيوب">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1384/1384060.png" alt="يوتيوب">
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/9647817533993" target="_blank" class="social-link" title="واتس آب">
+                    <img src="https://cdn-icons-png.flaticon.com/128/220/220236.png" alt="واتس آب">
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>تصميم م.م صفاء هادي - مدير قسم الإعداد والتدريب</p>
+        <p>© 2025 قسم الإعداد والتدريب - مديرية تربية المثنى</p>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61560094628032" target="_blank" class="social-link" title="فيسبوك">
+                <img src="https://cdn-icons-png.flaticon.com/128/733/733547.png" alt="فيسبوك">
+            </a>
+            <a href="https://www.tiktok.com/@aadad_offical" target="_blank" class="social-link" title="تيك توك">
+                <img src="https://cdn-icons-png.flaticon.com/128/3116/3116491.png" alt="تيك توك">
+            </a>
+            <a href="https://www.youtube.com/channel/UCXXkO4Qbs87oshrmYm9AyCQ" target="_blank" class="social-link" title="يوتيوب">
+                <img src="https://cdn-icons-png.flaticon.com/128/1384/1384060.png" alt="يوتيوب">
+            </a>
+            <a href="https://wa.me/9647817533993" target="_blank" class="social-link" title="واتس آب">
+                <img src="https://cdn-icons-png.flaticon.com/128/220/220236.png" alt="واتس آب">
+            </a>
+        </div>
+    </footer>
+
+    <!-- مكتبة SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script>
+        let schoolData = {};
+        let internalStudents = [];
+        let externalStudents = [];
+        let studentCounter = { internal: 0, external: 0 };
+        let isAdminLoggedIn = false;
+        let currentReportData = null;
+        let cumulativeReportData = null;
+
+        // إنشاء قائمة الأرقام
+        const studentCountSelect = document.getElementById('studentCount');
+        for (let i = 1; i <= 24; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            studentCountSelect.appendChild(option);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            const navLink = document.querySelector(`a[href="#${pageId}"]`);
+            if (navLink) navLink.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        // افراغ حقول المدرسة
+        function clearSchoolForm() {
+            document.getElementById('schoolForm').reset();
+            alert('✅ تم افراغ الحقول');
+        }
+
+        function checkReportAccess() {
+            const storedUser = localStorage.getItem('adminUser') || 'admin';
+            const storedPass = localStorage.getItem('adminPass') || 'admin123';
+
+            const username = prompt('🔐 أدخل اسم المستخدم:');
+            if (username === null) return;
+
+            const password = prompt('🔐 أدخل كلمة المرور:');
+            if (password === null) return;
+
+            if (username === storedUser && password === storedPass) {
+                showPage('report');
+                generateFullReport();
+            } else {
+                alert('❌ بيانات غير صحيحة!');
+            }
+        }
+
+        function generateFullReport() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+
+            if (data.length === 0) {
+                document.getElementById('reportContent').innerHTML = `
+                    <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 15px; padding: 30px; text-align: center;">
+                        <p style="color: #d97706; font-size: 1.1rem;">📭 لا توجد بيانات حتى الآن</p>
+                    </div>
+                `;
+                return;
+            }
+
+            currentReportData = data;
+
+            let totalInternal = 0;
+            let totalExternal = 0;
+            data.forEach(entry => {
+                totalInternal += entry.internalStudents.length;
+                totalExternal += entry.externalStudents.length;
+            });
+
+            const totalStudents = totalInternal + totalExternal;
+
+            let html = `
+                <div style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 25px; border-radius: 15px; margin: 20px 0;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">📊 ملخص التقرير</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>إجمالي الاستمارات</div>
+                            <div style="font-size: 1.8rem; font-weight: bold;">${data.length}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>إجمالي المطبقين</div>
+                            <div style="font-size: 1.8rem; font-weight: bold;">${totalStudents}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>م�� داخل</div>
+                            <div style="font-size: 1.8rem; font-weight: bold;">${totalInternal}</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>من خارج</div>
+                            <div style="font-size: 1.8rem; font-weight: bold;">${totalExternal}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: #1e3a8a; margin-top: 30px;">📚 المدارس المسجلة</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>المدرسة</th>
+                            <th>المدير</th>
+                            <th>الهاتف</th>
+                            <th>المطبقين</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            data.forEach((entry, idx) => {
+                const total = entry.internalStudents.length + entry.externalStudents.length;
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td>${entry.school.schoolName}</td>
+                        <td>${entry.school.principalName}</td>
+                        <td>${entry.school.principalPhone}</td>
+                        <td>${total}</td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+
+            // جدول المطبقين من داخل
+            if (totalInternal > 0) {
+                html += `<h3 style="color: #1e3a8a; margin-top: 30px;">👥 من داخل المحافظة (${totalInternal})</h3>
+                    <table class="data-table">
+                        <thead><tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>المدرسة</th>
+                            <th>الجامعة</th>
+                            <th>الكلية</th>
+                        </tr></thead><tbody>`;
+
+                let counter = 1;
+                data.forEach(entry => {
+                    entry.internalStudents.forEach(student => {
+                        html += `<tr>
+                            <td>${counter++}</td>
+                            <td>${student.name}</td>
+                            <td>${entry.school.schoolName}</td>
+                            <td>${student.university}</td>
+                            <td>${student.college}</td>
+                        </tr>`;
+                    });
+                });
+                html += `</tbody></table>`;
+            }
+
+            // جدول المطبقين من خارج
+            if (totalExternal > 0) {
+                html += `<h3 style="color: #1e3a8a; margin-top: 30px;">👥 من خارج المحافظة (${totalExternal})</h3>
+                    <table class="data-table">
+                        <thead><tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>المدرسة</th>
+                            <th>الجامعة</th>
+                            <th>الكلية</th>
+                        </tr></thead><tbody>`;
+
+                let counter = 1;
+                data.forEach(entry => {
+                    entry.externalStudents.forEach(student => {
+                        html += `<tr>
+                            <td>${counter++}</td>
+                            <td>${student.name}</td>
+                            <td>${entry.school.schoolName}</td>
+                            <td>${student.university}</td>
+                            <td>${student.college}</td>
+                        </tr>`;
+                    });
+                });
+                html += `</tbody></table>`;
+            }
+
+            document.getElementById('reportContent').innerHTML = html;
+        }
+
+        // تحميل Excel
+        function downloadExcelReport() {
+            if (!currentReportData || currentReportData.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            try {
+                const wb = XLSX.utils.book_new();
+
+                // ورقة الملخص
+                const summaryData = [
+                    ['التقرير التفصيلي للطلبة المطبقين'],
+                    ['التاريخ', new Date().toLocaleString('ar-IQ')],
+                    [''],
+                    ['إجمالي الاستمارات', currentReportData.length]
+                ];
+
+                let totalInternal = 0;
+                let totalExternal = 0;
+                currentReportData.forEach(entry => {
+                    totalInternal += entry.internalStudents.length;
+                    totalExternal += entry.externalStudents.length;
+                });
+
+                summaryData.push(['إجمالي المطبقين', totalInternal + totalExternal]);
+                summaryData.push(['من داخل المحافظة', totalInternal]);
+                summaryData.push(['من خارج المحافظة', totalExternal]);
+
+                const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+                wsSummary['!cols'] = [{ wch: 30 }, { wch: 20 }];
+                XLSX.utils.book_append_sheet(wb, wsSummary, 'الملخص');
+
+                // ورقة المدارس
+                const schoolsData = [['#', 'اسم المدرسة', 'المدير', 'الهاتف', 'المطبقين']];
+                currentReportData.forEach((entry, idx) => {
+                    const total = entry.internalStudents.length + entry.externalStudents.length;
+                    schoolsData.push([idx + 1, entry.school.schoolName, entry.school.principalName, entry.school.principalPhone, total]);
+                });
+
+                const wsSchools = XLSX.utils.aoa_to_sheet(schoolsData);
+                wsSchools['!cols'] = [{ wch: 5 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, { wch: 10 }];
+                XLSX.utils.book_append_sheet(wb, wsSchools, 'المدارس');
+
+                // ورقة من داخل
+                const internalData = [['#', 'الاسم', 'المدرسة', 'الجامعة', 'الكلية', 'القسم', 'تاريخ المباشرة', 'تاريخ الانفكاك']];
+                let counter = 1;
+                currentReportData.forEach(entry => {
+                    entry.internalStudents.forEach(student => {
+                        internalData.push([counter++, student.name, entry.school.schoolName, student.university, student.college, student.department, student.startDate, student.endDate]);
+                    });
+                });
+
+                const wsInternal = XLSX.utils.aoa_to_sheet(internalData);
+                wsInternal['!cols'] = [{ wch: 5 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }];
+                XLSX.utils.book_append_sheet(wb, wsInternal, 'من داخل');
+
+                // ورقة من خارج
+                const externalData = [['#', 'الاسم', 'المدرسة', 'الجامعة', 'الكلية', 'القسم', 'تاريخ المباشرة', 'تاريخ الانفكاك']];
+                counter = 1;
+                currentReportData.forEach(entry => {
+                    entry.externalStudents.forEach(student => {
+                        externalData.push([counter++, student.name, entry.school.schoolName, student.university, student.college, student.department, student.startDate, student.endDate]);
+                    });
+                });
+
+                const wsExternal = XLSX.utils.aoa_to_sheet(externalData);
+                wsExternal['!cols'] = [{ wch: 5 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }];
+                XLSX.utils.book_append_sheet(wb, wsExternal, 'من خارج');
+
+                XLSX.writeFile(wb, `تقرير_استلام_${new Date().toISOString().split('T')[0]}.xlsx`);
+                alert('✅ تم التحميل!');
+
+            } catch (error) {
+                console.error('خطأ:', error);
+                alert('❌ خطأ في التحميل');
+            }
+        }
+
+        // المشاركة عبر WhatsApp
+        function shareViaWhatsApp() {
+            if (!currentReportData || currentReportData.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            downloadExcelReport();
+            setTimeout(() => {
+                let totalInternal = 0;
+                let totalExternal = 0;
+                currentReportData.forEach(entry => {
+                    totalInternal += entry.internalStudents.length;
+                    totalExternal += entry.externalStudents.length;
+                });
+
+                const text = `📊 تقرير الطلبة المطبقين\n\n✅ إجمالي الاستمارات: ${currentReportData.length}\n✅ إجمالي المطبقين: ${totalInternal + totalExternal}\n✅ من داخل: ${totalInternal}\n✅ من خارج: ${totalExternal}\n\nقسم الإعداد والتدريب`;
+
+                window.open(`https://wa.me/9647817533993?text=${encodeURIComponent(text)}`);
+            }, 1000);
+        }
+
+        // المشاركة عبر Telegram
+        function shareViaTelegram() {
+            if (!currentReportData || currentReportData.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            downloadExcelReport();
+            setTimeout(() => {
+                const text = encodeURIComponent('📊 تقرير الطلبة المطبقين');
+                window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`);
+            }, 1000);
+        }
+
+        // المشاركة عبر Email
+        function shareViaEmail() {
+            if (!currentReportData || currentReportData.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            downloadExcelReport();
+            setTimeout(() => {
+                window.open('mailto:mobadra2019@gmail.com?subject=تقرير الطلبة المطبقين');
+            }, 1000);
+        }
+
+        // تحميل التقرير التراكمي
+        function downloadCumulativeReport() {
+            const reportData = JSON.parse(localStorage.getItem('cumulativeReport') || 'null');
+            if (!reportData) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            try {
+                const wb = XLSX.utils.book_new();
+
+                const summaryData = [['التقرير التراكمي'], ['التاريخ', reportData.generatedDate]];
+
+                let totalInternal = 0;
+                let totalExternal = 0;
+                reportData.data.forEach(entry => {
+                    totalInternal += entry.internalStudents.length;
+                    totalExternal += entry.externalStudents.length;
+                });
+
+                summaryData.push(['إجمالي الاستمارات', reportData.data.length]);
+                summaryData.push(['إجمالي المطبقين', totalInternal + totalExternal]);
+
+                const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+                XLSX.utils.book_append_sheet(wb, wsSummary, 'الملخص');
+
+                XLSX.writeFile(wb, `تقرير_تراكمي_${new Date().toISOString().split('T')[0]}.xlsx`);
+                alert('✅ تم التحميل!');
+
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            }
+        }
+
+        function shareCumulativeWhatsApp() {
+            downloadCumulativeReport();
+            setTimeout(() => {
+                const text = '📊 التقرير التراكمي للطلبة المطبقين';
+                window.open(`https://wa.me/9647817533993?text=${encodeURIComponent(text)}`);
+            }, 1000);
+        }
+
+        function shareCumulativeTelegram() {
+            downloadCumulativeReport();
+            setTimeout(() => {
+                window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}`);
+            }, 1000);
+        }
+
+        function shareCumulativeEmail() {
+            downloadCumulativeReport();
+            setTimeout(() => {
+                window.open('mailto:mobadra2019@gmail.com?subject=التقرير التراكمي');
+            }, 1000);
+        }
+
+        // دخول الأدمن
+        function adminLogin() {
+            const username = document.getElementById('adminUser').value;
+            const password = document.getElementById('adminPass').value;
+
+            const storedUser = localStorage.getItem('adminUser') || 'admin';
+            const storedPass = localStorage.getItem('adminPass') || 'admin123';
+
+            if (username === storedUser && password === storedPass) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                updateAdminStats();
+                loadInternalStudentsReport();
+                loadExternalStudentsReport();
+                alert('✅ مرحباً!');
+            } else {
+                alert('❌ بيانات خاطئة');
+            }
+        }
+
+        // تحديث الإحصائيات
+        function updateAdminStats() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            let totalInternal = 0;
+            let totalExternal = 0;
+
+            data.forEach(entry => {
+                totalInternal += entry.internalStudents.length;
+                totalExternal += entry.externalStudents.length;
+            });
+
+            document.getElementById('totalForms').textContent = data.length;
+            document.getElementById('totalStudents').textContent = totalInternal + totalExternal;
+            document.getElementById('internalCount').textContent = totalInternal;
+            document.getElementById('externalCount').textContent = totalExternal;
+        }
+
+        // تحميل تقرير المطبقين من داخل المحافظة
+        function loadInternalStudentsReport() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            let html = '';
+
+            let counter = 1;
+            data.forEach(entry => {
+                entry.internalStudents.forEach(student => {
+                    html += `
+                        <table class="data-table" style="margin-bottom: 15px;">
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">الرقم</td>
+                                <td>${counter++}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">الاسم</td>
+                                <td>${student.name}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">المدرسة</td>
+                                <td>${entry.school.schoolName}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">الجامعة</td>
+                                <td>${student.university}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">الكلية</td>
+                                <td>${student.college}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">القسم</td>
+                                <td>${student.department}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">نوع الدراسة</td>
+                                <td>${student.studyType}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">تاريخ المباشرة</td>
+                                <td>${student.startDate}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #e0e7ff; font-weight: bold;">تاريخ الانفكاك</td>
+                                <td>${student.endDate}</td>
+                            </tr>
+                        </table>
+                    `;
+                });
+            });
+
+            if (!html) {
+                html = '<p style="text-align: center; color: #999;">لا توجد بيانات</p>';
+            }
+
+            document.getElementById('internalReportView').innerHTML = html;
+        }
+
+        // تحميل تقرير المطبقين من خارج المحافظة
+        function loadExternalStudentsReport() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            let html = '';
+
+            let counter = 1;
+            data.forEach(entry => {
+                entry.externalStudents.forEach(student => {
+                    html += `
+                        <table class="data-table" style="margin-bottom: 15px;">
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">الرقم</td>
+                                <td>${counter++}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">الاسم</td>
+                                <td>${student.name}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">المدرسة</td>
+                                <td>${entry.school.schoolName}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">الجامعة</td>
+                                <td>${student.university}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">الكلية</td>
+                                <td>${student.college}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">القسم</td>
+                                <td>${student.department}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">نوع الدراسة</td>
+                                <td>${student.studyType}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">تاريخ المباشرة</td>
+                                <td>${student.startDate}</td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fef3c7; font-weight: bold;">تاريخ الانفكاك</td>
+                                <td>${student.endDate}</td>
+                            </tr>
+                        </table>
+                    `;
+                });
+            });
+
+            if (!html) {
+                html = '<p style="text-align: center; color: #999;">لا توجد بيانات</p>';
+            }
+
+            document.getElementById('externalReportView').innerHTML = html;
+        }
+
+        // تحديث بيانات الأدمن
+        function updateAdminCredentials() {
+            const newUser = document.getElementById('newUsername').value;
+            const newPass = document.getElementById('newPassword').value;
+
+            if (newUser) localStorage.setItem('adminUser', newUser);
+            if (newPass) localStorage.setItem('adminPass', newPass);
+
+            alert('✅ تم التحديث');
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+        }
+
+        // عرض البيانات
+        function viewAllData() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            const container = document.getElementById('adminDataView');
+
+            if (data.length === 0) {
+                container.innerHTML = '<p style="text-align: center;">لا توجد بيانات</p>';
+                return;
+            }
+
+            let html = `<h4>عدد الاستمارات: ${data.length}</h4><table class="data-table"><thead><tr>
+                <th>#</th>
+                <th>المدرسة</th>
+                <th>المدير</th>
+                <th>المطبقين</th>
+                <th>التاريخ</th>
+            </tr></thead><tbody>`;
+
+            data.forEach((entry, idx) => {
+                const total = entry.internalStudents.length + entry.externalStudents.length;
+                html += `<tr>
+                    <td>${idx + 1}</td>
+                    <td>${entry.school.schoolName}</td>
+                    <td>${entry.school.principalName}</td>
+                    <td>${total}</td>
+                    <td>${entry.timestamp}</td>
+                </tr>`;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // إنشاء تقرير تراكمي
+        function generateCumulativeReport() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+
+            if (data.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            cumulativeReportData = {
+                generatedDate: new Date().toLocaleString('ar-IQ'),
+                data: data
+            };
+
+            localStorage.setItem('cumulativeReport', JSON.stringify(cumulativeReportData));
+            document.getElementById('noCumulativeReport').style.display = 'none';
+            document.getElementById('cumulativeReportSection').style.display = 'block';
+            alert('✅ تم الإنشاء');
+        }
+
+        // تصدير البيانات
+        function exportAllData() {
+            const data = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            if (data.length === 0) {
+                alert('❌ لا توجد بيانات');
+                return;
+            }
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `البيانات_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            alert('✅ تم التصدير');
+        }
+
+        // حذف البيانات
+        function clearAllData() {
+            if (confirm('⚠️ هل أنت متأكد؟')) {
+                localStorage.clear();
+                alert('✅ تم الحذف');
+                updateAdminStats();
+                loadInternalStudentsReport();
+                loadExternalStudentsReport();
+            }
+        }
+
+        // تسجيل الخروج
+        function adminLogout() {
+            if (confirm('هل تريد تسجيل الخروج؟')) {
+                isAdminLoggedIn = false;
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+                alert('✅ تم الخروج');
+            }
+        }
+
+        // التحقق من المعلومات والانتقال
+        function validateAndProceed(action) {
+            const schoolName = document.getElementById('schoolName').value;
+            const principalName = document.getElementById('principalName').value;
+            const principalPhone = document.getElementById('principalPhone').value;
+            const sector = document.getElementById('sector').value;
+            const studentCount = document.getElementById('studentCount').value;
+
+            if (!schoolName || !principalName || !principalPhone || !sector || !studentCount) {
+                alert('⚠️ ملء جميع الحقول');
+                return;
+            }
+
+            schoolData = {
+                schoolName, principalName, principalPhone, sector,
+                studentCount: parseInt(studentCount)
+            };
+
+            localStorage.setItem('schoolData', JSON.stringify(schoolData));
+
+            if (action === 'verify') {
+                document.getElementById('verifyMsg').classList.add('show');
+                setTimeout(() => document.getElementById('verifyMsg').classList.remove('show'), 3000);
+            } else {
+                showPage(action);
+                addStudent(action);
+            }
+        }
+
+        // إضافة طالب
+        function addStudent(type) {
+            const container = document.getElementById(`${type}Students`);
+            const counter = ++studentCounter[type];
+
+            const div = document.createElement('div');
+            div.className = 'student-entry';
+            div.id = `${type}Student${counter}`;
+            div.innerHTML = `
+                <div class="student-entry-header">
+                    <h3>مطبق #${counter}</h3>
+                    <div class="student-entry-actions">
+                        <button type="button" class="clear-btn-student" onclick="clearFieldsForStudent('${type}', ${counter})" title="افراغ الحقول">🧹</button>
+                        <button type="button" class="remove-btn" onclick="removeStudent('${type}', ${counter})" title="حذف المطبق">❌</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>الاسم *</label>
+                    <input type="text" class="student-name" required>
+                </div>
+                <div class="form-group">
+                    <label>المدرسة *</label>
+                    <input type="text" class="student-school" value="${schoolData.schoolName || ''}" readonly style="background: #e0e7ff; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                    <label>الجامعة *</label>
+                    <input type="text" class="student-uni" required>
+                </div>
+                <div class="form-group">
+                    <label>الكلية *</label>
+                    <input type="text" class="student-college" required>
+                </div>
+                <div class="form-group">
+                    <label>القسم *</label>
+                    <input type="text" class="student-dept" required>
+                </div>
+                <div class="form-group">
+                    <label>نوع الدراسة *</label>
+                    <select class="student-type" required>
+                        <option value="">اختر</option>
+                        <option value="صباحي">صباحي</option>
+                        <option value="مسائي">مسائي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>المباشرة *</label>
+                    <input type="date" class="student-start" required>
+                </div>
+                <div class="form-group">
+                    <label>الانفكاك *</label>
+                    <input type="date" class="student-end" required>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        // افراغ حقول الطالب
+        function clearFieldsForStudent(type, counter) {
+            const element = document.getElementById(`${type}Student${counter}`);
+            if (element) {
+                element.querySelector('.student-name').value = '';
+                element.querySelector('.student-uni').value = '';
+                element.querySelector('.student-college').value = '';
+                element.querySelector('.student-dept').value = '';
+                element.querySelector('.student-type').value = '';
+                element.querySelector('.student-start').value = '';
+                element.querySelector('.student-end').value = '';
+            }
+        }
+
+        // حذف طالب
+        function removeStudent(type, id) {
+            const el = document.getElementById(`${type}Student${id}`);
+            if (el) el.remove();
+        }
+
+        // جمع بيانات الطلاب
+        function collectStudents(type) {
+            const students = [];
+            document.querySelectorAll(`#${type}Students .student-entry`).forEach(entry => {
+                const student = {
+                    name: entry.querySelector('.student-name').value,
+                    university: entry.querySelector('.student-uni').value,
+                    college: entry.querySelector('.student-college').value,
+                    department: entry.querySelector('.student-dept').value,
+                    studyType: entry.querySelector('.student-type').value,
+                    startDate: entry.querySelector('.student-start').value,
+                    endDate: entry.querySelector('.student-end').value
+                };
+                if (student.name && student.university) students.push(student);
+            });
+            return students;
+        }
+
+        // إرسال جميع البيانات
+        function submitAllData() {
+            internalStudents = collectStudents('internal');
+            externalStudents = collectStudents('external');
+
+            if (internalStudents.length === 0 && externalStudents.length === 0) {
+                alert('⚠️ أضف مطبق واحد على الأقل');
+                return;
+            }
+
+            const allData = {
+                timestamp: new Date().toLocaleString('ar-IQ'),
+                school: schoolData,
+                internalStudents,
+                externalStudents
+            };
+
+            let savedData = JSON.parse(localStorage.getItem('allSubmissions') || '[]');
+            savedData.push(allData);
+            localStorage.setItem('allSubmissions', JSON.stringify(savedData));
+
+            alert('✅ تم الإرسال!');
+            document.getElementById('schoolForm').reset();
+            document.getElementById('internalStudents').innerHTML = '';
+            document.getElementById('externalStudents').innerHTML = '';
+            studentCounter = { internal: 0, external: 0 };
+            showPage('home');
+        }
+
+        // تحميل عند الدخول
+        window.addEventListener('load', () => {
+            const savedSchool = localStorage.getItem('schoolData');
+            if (savedSchool) {
+                const data = JSON.parse(savedSchool);
+                document.getElementById('schoolName').value = data.schoolName || '';
+                document.getElementById('principalName').value = data.principalName || '';
+                document.getElementById('principalPhone').value = data.principalPhone || '';
+                document.getElementById('sector').value = data.sector || '';
+                document.getElementById('studentCount').value = data.studentCount || '';
+            }
+        });
+    </script>
+</body>
+</html>
